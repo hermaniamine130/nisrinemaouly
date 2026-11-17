@@ -1162,6 +1162,17 @@ nav .lg a.on{background:#7c1f22;color:#f6e7d0}
 nav .lg a:hover:not(.on){background:rgba(176,132,73,.2)}
 footer .fin2 a.ml{display:inline;padding:0;text-decoration:underline;text-underline-offset:3px}
 @media (max-width:480px){nav .lg{margin:0 4px}nav .lg a{padding:5px 7px;font-size:11.500px}nav .nom{margin-right:4px}}
+/* réalisations : l'ordinateur reste à l'écran, les projets changent quand on fait défiler la page */
+#realisations{height:calc(100svh + 13 * 34svh);padding:0}
+#realisations .rpin{position:sticky;top:0;height:100svh;display:flex;flex-direction:column;justify-content:center;align-items:stretch;overflow:hidden;padding-top:84px}
+#realisations .rscene{height:min(52svh,560px)}
+#realisations .rbande{margin-top:1.400svh}
+@media (min-width:981px){#realisations .ordi{width:min(100%,62svh,760px)}#realisations .rscene{height:min(50svh,560px);align-items:start;padding-top:1svh}}
+@media (max-width:480px){nav .nom{font-size:25px}nav .btn{padding:9px 11px;font-size:12px}nav .lg a{padding:4px 6px;font-size:11px}nav{gap:2px}}
+.rjauge{width:min(420px,60%);height:3px;margin:1.200svh auto 0;border-radius:3px;background:rgba(160,120,50,.22);overflow:hidden}
+.rjauge i{display:block;height:100%;width:100%;background:#7c1f22;transform-origin:0 50%;transform:scaleX(var(--p,0));transition:transform .25s}
+@media (max-width:980px){#realisations .rpin{padding-top:78px;justify-content:flex-start}#realisations .rscene{height:32svh}#realisations .rfiches b{font-size:26px}#realisations .rtxt h2{font-size:23px;margin-top:8px}.rnote{font-size:11.500px;padding:0 14px}}
+@media (max-height:700px) and (min-width:981px){#realisations .rscene{height:46svh}.rnote{display:none}}
 /* arabe : écriture de droite à gauche */
 :root{--titre:"Amiri","Cormorant Garamond",Georgia,serif;--texte:"Tajawal","Jost",system-ui,sans-serif}
 html[lang=ar] *{letter-spacing:0!important;text-transform:none!important}
@@ -1363,7 +1374,8 @@ html[lang=ar] .pli small,html[lang=ar] .plaque span{font-size:14px}
       </div>
     </div>
     <div class="rbande" id="rbande" aria-label="كل المشاريع: حرّكوا للتصفح"><button type="button" class="vg on" data-k="0"><img src="../assets/rz/r1.jpg" alt="" loading="lazy" draggable="false"><span>موقع وكالة أسفار</span></button><button type="button" class="vg" data-k="1"><img src="../assets/rz/r2.jpg" alt="" loading="lazy" draggable="false"><span>صندوق دفع ذكي</span></button><button type="button" class="vg" data-k="2"><img src="../assets/rz/riad.jpg" alt="" loading="lazy" draggable="false"><span>جولة 3D في رياض</span></button><button type="button" class="vg" data-k="3"><img src="../assets/rz/bijoux.jpg" alt="" loading="lazy" draggable="false"><span>فيلم 3D للمجوهرات</span></button><button type="button" class="vg" data-k="4"><img src="../assets/rz/immo.jpg" alt="" loading="lazy" draggable="false"><span>موقع وكالة عقارية</span></button><button type="button" class="vg" data-k="5"><img src="../assets/rz/appli.jpg" alt="" loading="lazy" draggable="false"><span>تطبيق عيادة</span></button><button type="button" class="vg" data-k="6"><img src="../assets/rz/spa.jpg" alt="" loading="lazy" draggable="false"><span>موقع منتجع صحي</span></button><button type="button" class="vg" data-k="7"><img src="../assets/rz/ongles.jpg" alt="" loading="lazy" draggable="false"><span>موقع صالون أظافر</span></button><button type="button" class="vg" data-k="8"><img src="../assets/rz/centre2.jpg" alt="" loading="lazy" draggable="false"><span>موقع مركز تجميل</span></button><button type="button" class="vg" data-k="9"><img src="../assets/rz/veto.jpg" alt="" loading="lazy" draggable="false"><span>موقع عيادة بيطرية</span></button><button type="button" class="vg" data-k="10"><img src="../assets/rz/r6.jpg" alt="" loading="lazy" draggable="false"><span>لوحة قيادة المدير</span></button><button type="button" class="vg" data-k="11"><img src="../assets/rz/r4.jpg" alt="" loading="lazy" draggable="false"><span>موقع عيادة تجميل</span></button><button type="button" class="vg" data-k="12"><img src="../assets/rz/dent.jpg" alt="" loading="lazy" draggable="false"><span>موقع عيادة أسنان</span></button></div>
-    <p class="rnote">حرّكوا المشاريع، أو انقروا على أحدها. أسماء العملاء محذوفة من النماذج الأولية.</p>
+    <div class="rjauge" aria-hidden="true"><i id="rjauge"></i></div>
+    <p class="rnote">مرّروا الصفحة: تتغيّر المشاريع على الشاشة. أسماء العملاء محذوفة من النماذج الأولية.</p>
   </div>
 </section>
 
@@ -1650,9 +1662,14 @@ addEventListener('scroll',function(){requestAnimationFrame(menu)},{passive:true}
   addEventListener('pointermove',function(e){if(!tire)return;var dx=e.clientX-x0;x0=e.clientX;bd.scrollLeft-=dx;v=dx;par+=Math.abs(dx);t0=performance.now()});
   addEventListener('pointerup',function(){if(!tire)return;tire=false;bd.classList.remove('tire');if(performance.now()-t0>90)v=0;(function g(){if(Math.abs(v)<.4)return;bd.scrollLeft-=v;v*=.95;anim=requestAnimationFrame(g)})()});
   bd.addEventListener('scroll',function(){touche=performance.now()},{passive:true});
-  bd.addEventListener('click',function(e){var c=e.target.closest&&e.target.closest('.vg');if(!c||par>6)return;touche=performance.now();voir(+c.dataset.k,true)});
+  /* la page qui défile choisit le projet ; un clic sur une vignette amène la page au bon endroit */
+  var jg=$('#rjauge'),course=function(){return Math.max(1,sec.offsetHeight-innerHeight)};
+  var suit=function(){var r=sec.getBoundingClientRect(),p=Math.max(0,Math.min(1,-r.top/course()));if(jg)jg.style.setProperty('--p',p.toFixed(3));
+    if(r.top>innerHeight||r.bottom<0)return;var k=Math.min(n-1,Math.floor(p*n));if(k!==act)voir(k,true)};
+  addEventListener('scroll',suit,{passive:true});addEventListener('resize',suit);suit();
+  bd.addEventListener('click',function(e){var c=e.target.closest&&e.target.closest('.vg');if(!c||par>6)return;touche=performance.now();
+    var k=+c.dataset.k,y=sec.getBoundingClientRect().top+scrollY+course()*(k+.5)/n;scrollTo({top:y,behavior:calme?'auto':'smooth'})});
   if(matchMedia('(hover:hover)').matches&&!calme)sec.addEventListener('pointermove',function(e){var r=od.getBoundingClientRect();od.style.setProperty('--ry',(-16+((e.clientX-(r.left+r.width/2))/innerWidth)*30).toFixed(1)+'deg')},{passive:true});
-  if(!calme)setInterval(function(){if(!vu||document.hidden||tire||performance.now()-touche<7000)return;voir(act+1,true)},3200);   /* sans action, le projet suivant arrive tout seul */
 })();
 
 /* le Majordome : chaque mission se joue dans le téléphone (demande, travail, validation, résultat) */
