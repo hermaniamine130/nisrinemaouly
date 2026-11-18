@@ -27,7 +27,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&family=IM+Fell+English:ital@0;1&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Jost:wght@300;400;500;600&family=Amiri:ital,wght@0,400;0,700;1,400&family=Aref+Ruqaa:wght@400;700&family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
 <script>document.documentElement.classList.add('js')</script>
-<link rel="stylesheet" href="../assets/site.css?v=8128426d">
+<link rel="stylesheet" href="../assets/site.css?v=949b7a3a">
 <style>
 /* arabe : écriture de droite à gauche */
 :root{--titre:"Amiri","Cormorant Garamond",Georgia,serif;--texte:"Tajawal","Jost",system-ui,sans-serif}
@@ -148,7 +148,7 @@ html[lang=ar] .pli small,html[lang=ar] .plaque span{font-size:14px}
         </div>
       </div>
     </div>
-    <div class="jalons" id="jalons"><i></i><i></i><i></i><i></i><i></i></div>
+    <div class="jalons" id="jalons"><button type="button" class="fl" data-d="-1" aria-label="السابق">&#8249;</button><i></i><i></i><i></i><i></i><i></i><button type="button" class="fl" data-d="1" aria-label="التالي">&#8250;</button></div>
   </div>
 </section>
 
@@ -226,8 +226,8 @@ html[lang=ar] .pli small,html[lang=ar] .plaque span{font-size:14px}
       </div>
     </div>
     <div class="rbande" id="rbande" aria-label="كل المشاريع: حرّكوا للتصفح"><button type="button" class="vg on" data-k="0"><img src="../assets/rz/r1.jpg" alt="" loading="lazy" draggable="false"><span>موقع وكالة أسفار</span></button><button type="button" class="vg" data-k="1"><img src="../assets/rz/r2.jpg" alt="" loading="lazy" draggable="false"><span>صندوق دفع ذكي</span></button><button type="button" class="vg" data-k="2"><img src="../assets/rz/riad.jpg" alt="" loading="lazy" draggable="false"><span>جولة 3D في رياض</span></button><button type="button" class="vg" data-k="3"><img src="../assets/rz/bijoux.jpg" alt="" loading="lazy" draggable="false"><span>فيلم 3D للمجوهرات</span></button><button type="button" class="vg" data-k="4"><img src="../assets/rz/immo.jpg" alt="" loading="lazy" draggable="false"><span>موقع وكالة عقارية</span></button><button type="button" class="vg" data-k="5"><img src="../assets/rz/appli.jpg" alt="" loading="lazy" draggable="false"><span>تطبيق عيادة</span></button><button type="button" class="vg" data-k="6"><img src="../assets/rz/spa.jpg" alt="" loading="lazy" draggable="false"><span>موقع منتجع صحي</span></button><button type="button" class="vg" data-k="7"><img src="../assets/rz/ongles.jpg" alt="" loading="lazy" draggable="false"><span>موقع صالون أظافر</span></button><button type="button" class="vg" data-k="8"><img src="../assets/rz/centre2.jpg" alt="" loading="lazy" draggable="false"><span>موقع مركز تجميل</span></button><button type="button" class="vg" data-k="9"><img src="../assets/rz/veto.jpg" alt="" loading="lazy" draggable="false"><span>موقع عيادة بيطرية</span></button><button type="button" class="vg" data-k="10"><img src="../assets/rz/r6.jpg" alt="" loading="lazy" draggable="false"><span>لوحة قيادة المدير</span></button><button type="button" class="vg" data-k="11"><img src="../assets/rz/r4.jpg" alt="" loading="lazy" draggable="false"><span>موقع عيادة تجميل</span></button><button type="button" class="vg" data-k="12"><img src="../assets/rz/dent.jpg" alt="" loading="lazy" draggable="false"><span>موقع عيادة أسنان</span></button></div>
-    <div class="rjauge" aria-hidden="true"><i id="rjauge"></i></div>
-    <p class="rnote">تتوالى المشاريع تلقائياً. انقر على صورة للاختيار. أسماء العملاء محذوفة من النماذج.</p>
+    <div class="rnav"><button type="button" class="fl" data-d="-1" aria-label="السابق">&#8249;</button><div class="rjauge" aria-hidden="true"><i id="rjauge"></i></div><button type="button" class="fl" data-d="1" aria-label="التالي">&#8250;</button></div>
+    <p class="rnote">اسحب بالإصبع أو بالفأرة، أو استعمل الأسهم. أسماء العملاء محذوفة من النماذج.</p>
   </div>
 </section>
 
@@ -482,7 +482,7 @@ fm.addEventListener('submit',function(e){
   var bes=$$('.besoins button[aria-pressed="true"]').map(function(b){return b.textContent});
   var interet=bes.length?bes.join(', '):'يُحدَّد معاً',objet='طلب مكالمة \u2013 '+act;
   /* si l'envoi direct échoue, on retombe sur la messagerie du visiteur : aucune demande perdue */
-  var secours=function(){
+  var secours=function(){clearTimeout(lent);
     var corps='مرحباً نسرين،\n\nالاسم: '+nom+'\nالنشاط: '+act+'\nContact : '+ctc+'\nما يهمّني: '+interet+(msg?'\n\nمشروعي: '+msg:'')+'\n\nأرغب في مكالمة من 15 دقيقة.\n';
     nt.style.color='';nt.textContent='تعذّر الإرسال المباشر: سيفتح بريدك الإلكتروني والرسالة جاهزة.';
     location.href='mailto:'+CONTACT.email+'?subject='+encodeURIComponent(objet)+'&body='+encodeURIComponent(corps);
@@ -491,15 +491,17 @@ fm.addEventListener('submit',function(e){
   var envoi={_subject:objet,_template:'table',_captcha:'false',Nom:nom,'Activité':act,Contact:ctc,'Intérêt':interet,Projet:msg||'-',Page:location.pathname};
   if(ctc.indexOf('@')>0)envoi.email=ctc;
   bt.disabled=true;nt.style.color='';nt.textContent='جارٍ الإرسال…';
-  fetch('https://formsubmit.co/ajax/'+encodeURIComponent(CONTACT.email),{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(envoi)})
+  /* le service d'envoi est parfois lent : on rassure, et la demande continue même si le visiteur quitte la page */
+  var lent=setTimeout(function(){nt.textContent='جارٍ الإرسال، قد يستغرق ذلك دقيقة. شكراً لانتظاركم…'},7000);
+  fetch('https://formsubmit.co/ajax/'+encodeURIComponent(CONTACT.email),{method:'POST',keepalive:true,headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(envoi)})
     .then(function(r){return r.json()})
     .then(function(j){
-      if(String(j.success)!=='true')throw new Error('refus');
+      clearTimeout(lent);if(String(j.success)!=='true')throw new Error('refus');
       fm.reset();$$('.besoins button').forEach(function(b){b.setAttribute('aria-pressed','false')});
       nt.style.color='#bfe3c4';nt.textContent='شكراً، وصل طلبك إلى نسرين. ستردّ عليك قريباً.';
     })
     .catch(secours)
-    .then(function(){bt.disabled=false});
+    .then(function(){clearTimeout(lent);bt.disabled=false});
 });
 
 /* barre d'avancement + rubrique en cours dans le menu */
@@ -540,6 +542,7 @@ addEventListener('scroll',function(){requestAnimationFrame(menu)},{passive:true}
   bd.addEventListener('scroll',function(){if(performance.now()-tAuto>1200)touche=performance.now()},{passive:true});
   /* au doigt : glisser sur l'ordinateur ou le texte passe au projet suivant ou précédent */
   glisse($('.rgrille',sec),function(d){touche=performance.now();voir(act+d,true)});
+  $$('.rnav .fl',sec).forEach(function(b){b.addEventListener('click',function(){touche=performance.now();voir(act+(+b.dataset.d),true)})});
   /* l'étiquette (« Maquette de démonstration »…) explique ce qu'elle veut dire quand on la touche */
   $('#rfiches').addEventListener('click',function(e){var q=e.target.closest&&e.target.closest('.etq');if(!q)return;touche=performance.now()+6000;
     var o=q.getAttribute('aria-expanded')!=='true';fi.forEach(function(d){d.classList.toggle('info',o);var z=d.querySelector('.etq');if(z)z.setAttribute('aria-expanded',o)})});
@@ -549,7 +552,7 @@ addEventListener('scroll',function(){requestAnimationFrame(menu)},{passive:true}
   (function bat(){
     requestAnimationFrame(bat);
     if(calme||!vu||document.hidden){t1=performance.now();return}
-    var t=performance.now(),repos=tire||t-touche<6500;if(repos)t1=t;
+    var t=performance.now(),repos=tire||glisse.main||t-touche<6500;if(repos)t1=t;
     var p=Math.min(1,(t-t1)/PAS);if(jg)jg.style.setProperty('--p',p.toFixed(3));
     if(!repos&&p>=1){tAuto=t;t1=t;voir(act+1,true)}
   })();
@@ -818,15 +821,23 @@ function aller(t){tour=t;forme(((t%5)+5)%5);if(an)an.style.setProperty('--a',(-7
 ja.forEach(function(j,k){j.addEventListener('click',function(){aller(tour+k-((tour%5)+5)%5);attente=performance.now()+7000})});
 /* au doigt : glisser à gauche ou à droite change de cadre ; un geste vertical fait défiler la page comme d'habitude */
 function glisse(zone,fn){var x=0,y=0,ok=false;
-  zone.addEventListener('touchstart',function(e){if(e.touches.length!==1){ok=false;return}ok=true;x=e.touches[0].clientX;y=e.touches[0].clientY},{passive:true});
-  zone.addEventListener('touchend',function(e){if(!ok)return;ok=false;var t=e.changedTouches[0],dx=t.clientX-x,dy=t.clientY-y;if(Math.abs(dx)>42&&Math.abs(dx)>Math.abs(dy)*1.4)fn(dx<0?1:-1)},{passive:true})}
+  var fin=function(cx,cy){var dx=cx-x,dy=cy-y;if(Math.abs(dx)>42&&Math.abs(dx)>Math.abs(dy)*1.4){glisse.t=performance.now();fn(dx<0?1:-1)}};
+  zone.addEventListener('touchstart',function(e){if(e.touches.length!==1){ok=false;return}ok=true;glisse.main=true;x=e.touches[0].clientX;y=e.touches[0].clientY},{passive:true});
+  zone.addEventListener('touchend',function(e){glisse.main=false;if(!ok)return;ok=false;var t=e.changedTouches[0];fin(t.clientX,t.clientY)},{passive:true});
+  /* à la souris : on attrape et on tire, comme au doigt */
+  var souris=false;
+  zone.addEventListener('pointerdown',function(e){if(e.pointerType!=='mouse'||e.button!==0||(e.target.closest&&e.target.closest('button,a,input,textarea')))return;souris=true;glisse.main=true;x=e.clientX;y=e.clientY});
+  zone.addEventListener('touchcancel',function(){ok=false;glisse.main=false},{passive:true});
+  addEventListener('pointerup',function(e){if(!souris)return;souris=false;glisse.main=false;fin(e.clientX,e.clientY)});
+  zone.addEventListener('dragstart',function(e){e.preventDefault()})}
 glisse($('#methode .epingle'),function(d){aller(tour+d);attente=performance.now()+7000});
-if(car0)car0.addEventListener('click',function(e){var r=car0.getBoundingClientRect();aller(tour+(e.clientX<r.left+r.width*.3?-1:1));attente=performance.now()+7000});
+$$('#jalons .fl').forEach(function(b){b.addEventListener('click',function(){aller(tour+(+b.dataset.d));attente=performance.now()+7000})});
+if(car0)car0.addEventListener('click',function(e){if(performance.now()-(glisse.t||0)<400)return;var r=car0.getBoundingClientRect();aller(tour+(e.clientX<r.left+r.width*.3?-1:1));attente=performance.now()+7000});
 if('IntersectionObserver' in window)new IntersectionObserver(function(es){es.forEach(function(e){scVu=e.isIntersecting;depart=performance.now()})},{threshold:.25}).observe(sc);else scVu=true;
 (function bat(){
   requestAnimationFrame(bat);
   if(calme||!scVu||document.hidden)return;
-  var t=performance.now(),c=((tour%5)+5)%5,repos=t<attente;if(repos)depart=t;
+  var t=performance.now(),c=((tour%5)+5)%5,repos=t<attente||glisse.main;if(repos)depart=t;
   var p=repos?1:Math.min(1,(t-depart)/DUREE);
   ja.forEach(function(j,k){j.style.setProperty('--p',k<c?1:k===c?p:0)});
   if(!repos&&p>=1)aller(tour+1);
