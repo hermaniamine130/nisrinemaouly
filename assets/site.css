@@ -1166,4 +1166,23 @@ nav{background:rgba(255,252,248,.95)}
 }
 /* pôle Immobilier : ligne « Ambassadrice de Lloyd & Davis » entre le titre et la phrase */
 .amb{display:block;margin:0 0 12px;font:500 12.5px var(--texte);letter-spacing:.2em;text-transform:uppercase;color:#7c1f22}
+/* petit cœur « j'aime », au-dessus du bouton WhatsApp */
+.coeur{position:fixed;right:30px;bottom:92px;z-index:65;display:flex;align-items:center;gap:8px;padding:10px 16px 10px 12px;border-radius:99px;border:1px solid rgba(124,31,34,.35);background:rgba(255,252,248,.96);color:#7c1f22;font:500 14px var(--texte);cursor:pointer;box-shadow:0 10px 24px rgba(124,31,34,.18);transition:transform .25s,background .25s,color .25s}
+.coeur svg{width:21px;height:21px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linejoin:round;flex:none;transition:fill .25s}
+.coeur:hover{transform:translateY(-3px)}
+.coeur.on{background:#7c1f22;color:#fff;border-color:#7c1f22;cursor:default}
+.coeur.on svg{fill:currentColor}
+.coeur.bat svg{animation:bat .6s ease}
+.coeur:focus-visible{outline:2px solid var(--or);outline-offset:3px}
+@keyframes bat{0%{transform:scale(1)}35%{transform:scale(1.45)}70%{transform:scale(.92)}100%{transform:scale(1)}}
+@media (max-width:980px){.coeur{right:16px;bottom:74px;padding:12px}.coeur span{display:none}}
+@media (prefers-reduced-motion:reduce){.coeur.bat svg{animation:none}}
 
+/* sommaire des savoir-faire à gauche (demande de Nisrine), le texte se décale, les cadres reviennent à droite */
+@media (min-width:981px){
+.sommaire{left:0;right:auto}
+.sommaire button.on{transform:translateX(6px)}
+#methode .pas{margin-left:178px;width:min(36vw,640px)}
+#jalons{left:calc(max(22px,50% - 680px) + 178px)}
+.carrousel{right:max(30px,calc(50% - 672px))}
+}
