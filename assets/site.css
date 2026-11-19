@@ -1186,3 +1186,10 @@ nav{background:rgba(255,252,248,.95)}
 #jalons{left:calc(max(22px,50% - 680px) + 178px)}
 .carrousel{right:max(30px,calc(50% - 672px))}
 }
+/* bouton e-mail flottant, à gauche du bouton WhatsApp */
+.mel{position:fixed;right:186px;bottom:30px;z-index:65;display:flex;align-items:center;gap:9px;padding:13px 20px 13px 16px;border-radius:99px;background:#7c1f22;color:#fff;font:500 14.5px var(--texte);box-shadow:0 14px 30px rgba(124,31,34,.32);transition:transform .25s}
+.mel svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.mel:hover{transform:translateY(-3px)}
+.mel:focus-visible{outline:2px solid var(--or);outline-offset:3px}
+@media (max-width:980px){.mel{right:74px;bottom:16px;padding:13px}.mel span{display:none}}
+
